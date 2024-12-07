@@ -3,16 +3,24 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 const Todo = () => {
 
- const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')));
+ const [todos, setTodos] = useState(loadTodoList());
  const [inputTodo, setInputTodo] = useState('')
  const [dates, setDates] = useState('')
 
 
 
+ function saveTodoList (todos) {
+  localStorage.setItem('todos', JSON.stringify(todos));
+ }
 
+ function loadTodoList () {
+  const storeTodo = localStorage.getItem('todos');
+
+  return storeTodo ? JSON.parse(storeTodo) : [];
+ } 
 
  useEffect(() => {
-   localStorage.setItem('todos', JSON.stringify(todos))
+   saveTodoList(todos)
  }, [todos])
  
  
